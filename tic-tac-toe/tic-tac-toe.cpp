@@ -84,10 +84,14 @@ int main() {
         printBoard(board);
 
         if (checkWinner(board)==true) {
-            std::cout << "Player " << CURRENT_PLAYER << " is the winner!";
+            std::cout << "Player " << CURRENT_PLAYER << " is the winner!\n";
             break;
         }
 
         nextPlayer();
+    }
+    
+    if (checkFinished(board) == true && checkWinner(board) == false) {
+        std::cout << "It's a draw!\n";
     }
 }
