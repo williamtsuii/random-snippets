@@ -1,10 +1,10 @@
 #include <iostream>
 
-int EMPTY=0;
-int CROSS=1;
-int CIRCLE=2;
-int CURRENT_PLAYER=CROSS;
-int board[3][3];
+char EMPTY='-';
+char CROSS='X';
+char CIRCLE='O';
+char CURRENT_PLAYER=CROSS;
+char board[3][3];
 
 void initBoard() {
     for (int i = 0; i < 3; i++) {
@@ -14,7 +14,7 @@ void initBoard() {
     }
 }
 
-bool checkFinished(int array[3][3]) {
+bool checkFinished(char array[3][3]) {
     bool status=true;
 
     for (int i = 0; i < 3; i++) {
@@ -26,11 +26,11 @@ bool checkFinished(int array[3][3]) {
     return status;
 }
 
-void updateBoard(int array[3][3], int x, int y) {
+void updateBoard(char array[3][3], int x, int y) {
     array[x][y]=CURRENT_PLAYER;
 }
 
-bool checkWinner(int array[3][3]) {
+bool checkWinner(char array[3][3]) {
     bool won=false;
 
     for (int i = 0 ; i < 3; i++) {
@@ -57,7 +57,7 @@ void nextPlayer() {
     }
 }
 
-void printBoard(int array[3][3]) {
+void printBoard(char array[3][3]) {
     for (int i = 0; i<3; i++) {
         std::cout << board[0][i] << "|" << board[1][i] << "|" << board[2][i] << "\n";
     }
@@ -71,9 +71,9 @@ int main() {
         std::cout << "Current player: " << CURRENT_PLAYER << "\n";
 
         int x,y;
-        char open,comma,close;
-        std::cout << "Please enter coordinates (x,y): ";
-        std::cin >> open >> x >> comma >> y >> close;
+        char comma;
+        std::cout << "Please enter coordinates x,y: ";
+        std::cin >> x >> comma >> y;
         x--,y--;
 
         if (board[x][y] != EMPTY) {
@@ -94,4 +94,23 @@ int main() {
     if (checkFinished(board) == true && checkWinner(board) == false) {
         std::cout << "It's a draw!\n";
     }
+    
+    char exitAnswer;
+    std::cout << "Do you want to play again? y/n: ";
+    while (std::cin >> exitAnswer) {
+
+//        std::cin >> exitAnswer;
+        
+        if (exitAnswer == 'y') {
+            main();
+        } else if (exitAnswer == 'n') {
+            std::cout << "Goodbye.\n";
+            return 0;
+        } else {
+            std::cout << "I didn't get that, please input your answer again: ";
+            continue;
+        }
+        
+    }
+    
 }
